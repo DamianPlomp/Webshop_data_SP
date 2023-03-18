@@ -16,7 +16,7 @@ cur = con.cursor()
 client = MongoClient('mongodb://localhost:27017')
 db = client.get_database('huwebshop')
 
-doc = client.huwebshop.products.find_one()
+
 
 #haalt lijst van alle producten op uit mongoDB
 products = [product for product in client.huwebshop.product.find()]
