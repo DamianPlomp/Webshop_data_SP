@@ -1,5 +1,6 @@
 import psycopg2
 from pymongo import MongoClient
+import random
 import numpy as np
 
 # connectie met postgreSQL
@@ -45,52 +46,3 @@ def product_to_db(products):
 
 
 product_to_db(product_counts)
-
-
-def avg_price(products):
-    """
-    :param products: list
-    :return: float
-    """
-    total = 0
-    count = 0
-    for product in products:
-        if 'price' in product and 'selling_price' in product['price']:
-            total += product['price']['selling_price']
-            count += 1
-
-    if count == 0:
-        print("No prices found")
-        return None
-
-    gem = round(total / (count * 100), 2)
-
-    return gem
-
-
-print(avg_price(product_counts))
-
-
-def deviation():
-    """
-    geeft de deviatie van de meest afwijkende prijs
-    :return: max(deviations): int
-    """
-    db = client['huwebshop']
-    collection = db['products']
-
-    prices = []
-    for product in collection.find():
-        if 'price' in product and 'selling_price' in product['price']:
-            prices.append(product['price']['selling_price'])
-
-    if prices:
-        max_price = max(prices)
-        min_price = min(prices)
-        biggest_deviation = max_price - min_price
-        return biggest_deviation
-    else:
-        print("No prices found")
-
-
-print(deviation())
