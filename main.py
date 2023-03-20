@@ -1,7 +1,5 @@
 import psycopg2
 from pymongo import MongoClient
-import random
-import numpy as np
 
 # connectie met postgreSQL
 con = psycopg2.connect(
